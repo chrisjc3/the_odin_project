@@ -1,0 +1,100 @@
+#logo{
+	height:300px;width:300px;
+	margin:auto;
+	display:block;
+	position:relative;
+	padding:10px;
+	top:100px;
+
+}
+#search-field{
+	height:20px;width:450px;
+	margin:auto;
+	display:block;
+	position:relative;
+
+
+}
+
+#divbut{
+	height:200px;width:400px;
+	margin:auto;
+	display:block;
+	position:relative;
+	left:40px;
+	top:10px;
+}
+
+#dbutton{
+	display:inline-block;
+	background-color:light grey;
+	font-weight:bold;
+	border-radius:5px;
+	font-family:Arial;
+	position:relative;
+	height:35px;width:150px;
+	margin:auto;
+}
+
+/*****List item a{} appearence*********/
+
+ul li a{
+	text-decoration:none;
+	display:inline-block;
+	width:80px;
+}
+
+/*****************FOOTER CONTROLS****************/
+
+
+#footer{
+	background:#DAE0E6;
+	text-align:center;
+	position:fixed;bottom:10px;width:100%;
+	padding:10px;
+	margin:-10px;
+}
+
+#FootTbl1{
+	float:left;
+	text-align:center;
+	margin:0;
+	padding:0;
+	overflow: hidden;
+}
+
+#FootTbl2{
+	float:right;
+	text-align:center;
+	position:relative;right:20px;
+	margin:0;
+	padding:0;
+	overflow: hidden;
+}
+#footitem{
+	display:inline;
+	width:60px;
+	text-decoration:none;
+}
+
+
+/*****************HEADER CONTROLS****************/
+#header{
+	background-color:light grey;
+	text-align:center;
+	position:fixed;top:10px;width:100%;
+}
+#headlst{
+	float:right;
+	position:relative;right:120px;
+	list-style-type:none;
+	margin:0;
+	padding:0;
+	overflow: hidden;
+	background-color: light grey;
+}
+#headitem{
+	display:inline;
+	width:60px;
+	text-decoration:none;
+}

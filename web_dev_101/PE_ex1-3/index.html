@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--Meta Javascript tag-->
+		<meta http-equiv="Content-Script-Type" content="text/javascript">
+		<!--CSS Connection-->
+		<link type="text/css" rel="stylesheet" href="C:\the_odin_project\PE_ex1-3\stylesheet.css" />
+		<!--Site title-->
+		<title>Javascript-PE</title>
+		<!--Flavicon addition-->
+		<link href="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Incircle_and_Excircles.svg/270px-Incircle_and_Excircles.svg.png" rel="icon"
+		type="image/png" />
+		<!--Math-->
+		<script type="text/javascript" src="pejava.js"> </script>
+	</head>
+	<body id="base">
+	<!------------PE #1---------------------->
+		<div id="pe1"> <p style="font-weight:bold;text-decoration:underline;text-align:center">Project Euler Ex#1</p>
+			<form id="form1" name="sform">
+				Multiples of: <br><input type="text" name="multo"><br>
+				Under: <br><input type="text" name="undr"><br>
+			<input type="button" name="button" value="Submit" onClick="MultiplesUnder(form1.multo.value, form1.undr.value);" >
+			</form>
+
+			<form id="form2" name="sform">
+				Multiples of: <br><input type="text" name="multo"><br>
+				Under: <br><input type="text" name="undr"><br>
+			<input type="button" name="button" value="Submit" onClick="MultiplesUnder(form2.multo.value, form2.undr.value);" >
+			</form>
+			
+			<form id="form3" name="sform">
+			<input type="button" name="button" value="Sum Divs" onClick="SumDivs();" >
+			<input type="button" name="clear" value="Clear" onClick="delcalc();" >
+			</form>
+		</div>
+	<!------------PE #2---------------------->
+		<div id="pe2"> <p style="font-weight:bold;text-decoration:underline;text-align:center">Project Euler Ex#2</p>
+			<form id="form3" name="cform">
+			<input type="button" name="GenFibro4m" value="GenFibro4m" onClick="Fibro4m();" >
+			<input type="button" name="Derive Even" value="Derive Even" onClick="EvenFibro();" >
+			</form>
+			<form id="form4" name="cform">
+			<input type="button" name="Sum Even Fibro" value="Sum Even Fibro" onClick="SumFib();" >
+			<input type="button" name="clear" value="Clear" onClick="delcalc();" >
+			</form>
+		</div>
+
+	<!------------PE #3---------------------->
+		<div id="pe3"> <p style="font-weight:bold;text-decoration:underline;text-align:center">Project Euler Ex#3</p>
+			<form id="formf" name="sform">
+				Largest Prime of: <br><input type="text" name="maxno"><br>
+			<input type="button" name="button" value="Submit" onClick="LargestPrime(formf.maxno.value);" >
+			</form>
+			<form id="form4" name="cform">
+			<input type="button" name="clear" value="Clear" onClick="delcalc();" >
+			</form>
+		</div>
+	
+	</body>
+</html>

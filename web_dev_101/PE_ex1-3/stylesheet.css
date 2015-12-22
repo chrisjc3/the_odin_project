@@ -1,0 +1,70 @@
+#pe1{
+height:280px; width:200px;
+border:2px solid black;
+display:inline-block;
+margin:auto;
+position:absolute;
+
+}
+#pe2{
+height:280px; width:200px;
+border:2px solid black;
+display:inline-block;
+position:absolute;
+left:300px;
+
+}
+#pe3{
+height:280px; width:200px;
+border:2px solid black;
+display:inline-block;
+position:absolute;
+left:600px;
+}
+div[id^="hld_"]{
+display:block;
+margin:auto;
+position:relative;
+top:500px;
+left:100px;
+}
+div[id^="fib"]{
+display:block;
+margin:auto;
+position:relative;
+top:500px;
+left:100px;
+}
+div[id^="prime"]{
+display:block;
+margin:auto;
+position:relative;
+top:500px;
+left:100px;
+}
+#sum{
+display:block;
+margin:auto;
+position:relative;
+top:500px;
+left:100px;
+}
+form{
+display:block;
+margin:auto;
+position:relative;
+left:10px;
+}
+#form3{
+display:inline-block;
+position:relative;
+top:5px;
+margin-left:0px;
+}
+
+#form4{
+display:inline-block;
+margin:auto;
+position:relative;
+top:25px;
+}
