@@ -23,7 +23,7 @@ def bubblesort(arr)
 end
 
 
-
+#I don't really think this works, but it works for the example and I get the idea.
 def bubble_sort_by(arr)
 	i, mx, ct, complete = 0, arr.size-1, 0, false
 	until complete == true
