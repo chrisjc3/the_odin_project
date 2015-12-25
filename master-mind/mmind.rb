@@ -8,6 +8,7 @@
 		#order of feedback is not considered
 #player gets 8 guesses
 
+#Probably not going to do AI...#
 #################Define AI last, make AI gen_col_tgt first
 #################REPLICATE that guy's youtube strategy 
 #################should probably be able to win every time
@@ -25,6 +26,7 @@ end
 
 col_arr = ["green","red","blue","black","purple","yellow"]
 
+###AI picks color array
 def ai_col_tgt(arr)
 	i = 1
 	col_tgt = []
@@ -34,10 +36,6 @@ def ai_col_tgt(arr)
 	end
 	return col_tgt.to_a
 end
-
-#def player_col_tgt
-
-#end
 
 def guess_tgt
 	puts "First Color: "
@@ -52,15 +50,12 @@ def guess_tgt
 	puts "Fourth Color: "
 		c4 = gets.chomp
 		c4 = c4.to_s
+	#Should put check in here to see if in col_arr
 	guess_arr = [c1,c2,c3,c4]
 	return guess_arr
 end
 
-def return_feedback(a, b)
-	feedback = []
-	tested = []
-	correct = []
-	allow = 1
+def hi_arr_freq(a)
 	#Assigns allow to highest frequency
 	afreq = a.to_s
 	afreq = afreq.split(",")
@@ -70,17 +65,28 @@ def return_feedback(a, b)
 	f = freq.reverse[0]
 	allow = f[1,1].to_s
 	allow = allow.gsub(/\W/,"")
-	allow = allow.to_i
+	return allow.to_i
+end
+
+def return_feedback(a, b)
+	feedback = []
+	tested = []
+	correct = []
+	allow = hi_arr_freq(a)
 	#check if any correct position and push to front
 	i = 0
 	act = 1
-	until i >= 3
+
+
+##############THESE two contollers don't work##################
+#find a better way
+	until i == 4
 		if a[i] == b[i]
 			if correct.does_not_include? b[i]
-				feedback.push "correct"
+				feedback.push "debug - " + b[i].to_s + ": correct"
 				correct.push b[i]
-			elsif act < allow
-				feedback.push "correct"
+			elsif correct.include? b[i] and act <= allow
+				feedback.push "debug - " + b[i].to_s + ": correct"
 				correct.push b[i]
 				act += 1
 			end
@@ -90,13 +96,13 @@ def return_feedback(a, b)
 	#recirculate barring corrects and check if present
 	i = 0
 	act = 1
-	until i >= 3
+	until i == 4
 		if a.include? b[i] and a[i] != b[i]
 			if tested.does_not_include? b[i]
-				feedback.push "present"
+				feedback.push "debug - " + b[i].to_s + ": present"
 				tested.push b[i]
-			elsif act < allow
-				feedback.push "present"
+			elsif tested.include? b[i] and correct.does_not_include? b[i] and act <= allow
+				feedback.push "debug - " + b[i].to_s + ": present"
 				tested.push b[i]
 				act += 1
 			end
@@ -104,7 +110,11 @@ def return_feedback(a, b)
 		tested.push b[i]
 		i += 1
 	end
-	#fill feedback w/ nil if applicable
+##############THESE two contollers don't work##################
+
+
+
+	#fill feedback w/ nil if necessary
 	until feedback.size == 4
 		feedback.push "nil"
 	end
@@ -112,21 +122,33 @@ def return_feedback(a, b)
 end
 
 
-answer = ai_col_tgt(col_arr)
-#print answer 
-puts "Answer: " + answer.to_s
+################GAME START######################
 
-#Do until feedback = true or i = 7
-i = 1
-until i == 7
-	guess = guess_tgt
-	puts "Guess Number " + i.to_s + ": " + guess.to_s
-	if answer == guess
-		puts "Guesser wins!"
-		break
-	else
-		x = return_feedback(answer, guess)
-		puts "Feedback Number " + i.to_s + ": " + x.to_s
+puts "Who picks colors? 0 = ai ; 1 = you"
+ply = gets.chomp
+ply = ply.to_i
+
+if ply == 0 
+	answer = ai_col_tgt(col_arr)
+	#print answer 
+	puts "Answer: " + answer.to_s
+	i = 1
+	until i == 8
+		guess = guess_tgt
+		puts "Guess Number " + i.to_s + ": " + guess.to_s
+		if answer == guess
+			puts "Guesser wins!"
+			break
+		else
+			x = return_feedback(answer, guess)
+			puts "Feedback Number " + i.to_s + ": " + x.to_s
+		end
+	i += 1
 	end
-i += 1
+elsif ply == 1
+	answer = guess_tgt
+else
+	puts "learn to play"
 end
+
+################END######################
