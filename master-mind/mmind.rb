@@ -24,9 +24,6 @@ module Enumerable
   end
 end
 
-col_arr = ["green","red","blue","black","purple","yellow"]
-
-###AI picks color array
 def ai_col_tgt(arr)
 	i = 1
 	col_tgt = []
@@ -50,79 +47,100 @@ def guess_tgt
 	puts "Fourth Color: "
 		c4 = gets.chomp
 		c4 = c4.to_s
-	#Should put check in here to see if in col_arr
 	guess_arr = [c1,c2,c3,c4]
 	return guess_arr
 end
 
-def hi_arr_freq(a)
-	#Assigns allow to highest frequency
-	afreq = a.to_s
-	afreq = afreq.split(",")
+def gen_freq(a)
+	afreq = a
 	freq = Hash.new(0)
 	afreq.each { |col| freq[col] += 1} 
-	freq = freq.sort_by{|a,b|b}
-	f = freq.reverse[0]
-	allow = f[1,1].to_s
-	allow = allow.gsub(/\W/,"")
-	return allow.to_i
+	return freq
+end
+
+def make_keys(a)
+		nx = a.flatten
+		$cl_nm1 = nx[0]
+		$cl_no1 = nx[1]
+		$cl_nm2 = nx[2]
+		$cl_no2 = nx[3]
+		$cl_nm3 = nx[4]
+		$cl_no3 = nx[5]
+		$cl_nm4 = nx[6]
+		$cl_no4 = nx[7]
+end
+
+def find_allow(a)
+	if a == $cl_nm1
+		return $cl_no1
+	end
+	if a == $cl_nm2
+		return $cl_no2
+	end
+	if a == $cl_nm3
+		return $cl_no3
+	end
+	if a == $cl_nm4
+		return $cl_no4
+	end
 end
 
 def return_feedback(a, b)
 	feedback = []
 	tested = []
 	correct = []
-	allow = hi_arr_freq(a)
-	#check if any correct position and push to front
+	present = []
+	afreq = gen_freq(a)
+	make_keys(afreq)
 	i = 0
-	act = 1
 
-
-##############THESE two contollers don't work##################
-#find a better way
 	until i == 4
 		if a[i] == b[i]
-			if correct.does_not_include? b[i]
-				feedback.push "debug - " + b[i].to_s + ": correct"
-				correct.push b[i]
-			elsif correct.include? b[i] and act <= allow
-				feedback.push "debug - " + b[i].to_s + ": correct"
-				correct.push b[i]
-				act += 1
-			end
+			correct.push b[i]
+		elsif a.include? b[i] and a[i] != b[i]
+			present.push b[i]
+		else
+			tested.push b[i]
 		end
 		i += 1
 	end
-	#recirculate barring corrects and check if present
+
 	i = 0
-	act = 1
-	until i == 4
-		if a.include? b[i] and a[i] != b[i]
-			if tested.does_not_include? b[i]
-				feedback.push "debug - " + b[i].to_s + ": present"
-				tested.push b[i]
-			elsif tested.include? b[i] and correct.does_not_include? b[i] and act <= allow
-				feedback.push "debug - " + b[i].to_s + ": present"
-				tested.push b[i]
-				act += 1
-			end
+	until i == correct.size
+		j = 0
+		x = correct.count(correct[i])
+		until j == x.to_i
+			feedback.push "correct"
+			j += 1
 		end
-		tested.push b[i]
 		i += 1
 	end
-##############THESE two contollers don't work##################
 
-
+	i = 0
+	until i == present.size
+		x = find_allow(present[i])
+		j = 0
+		c = correct.count(present[i])
+		x = x.to_i - c.to_i
+		until j == x.to_i
+			feedback.push "present"
+			j += 1
+		end
+		i += 1
+	end
 
 	#fill feedback w/ nil if necessary
 	until feedback.size == 4
 		feedback.push "nil"
 	end
+
 	return feedback
 end
 
 
 ################GAME START######################
+
+col_arr = ["green","red","blue","black","purple","yellow"]
 
 puts "Who picks colors? 0 = ai ; 1 = you"
 ply = gets.chomp
@@ -130,8 +148,7 @@ ply = ply.to_i
 
 if ply == 0 
 	answer = ai_col_tgt(col_arr)
-	#print answer 
-	puts "Answer: " + answer.to_s
+	#puts "Answer: " + answer.to_s
 	i = 1
 	until i == 8
 		guess = guess_tgt
@@ -146,6 +163,7 @@ if ply == 0
 	i += 1
 	end
 elsif ply == 1
+	puts "Please choose from : " + col_arr.to_s
 	answer = guess_tgt
 else
 	puts "learn to play"
