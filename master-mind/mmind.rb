@@ -137,7 +137,6 @@ def return_feedback(a, b)
 	return feedback
 end
 
-
 ################GAME START######################
 
 col_arr = ["green","red","blue","black","purple","yellow"]
@@ -148,7 +147,7 @@ ply = ply.to_i
 
 if ply == 0 
 	answer = ai_col_tgt(col_arr)
-	#puts "Answer: " + answer.to_s
+	puts "Answer: " + answer.to_s
 	i = 1
 	until i == 8
 		guess = guess_tgt
@@ -161,10 +160,31 @@ if ply == 0
 			puts "Feedback Number " + i.to_s + ": " + x.to_s
 		end
 	i += 1
+	puts "Please choose from: " + col_arr.to_s
 	end
 elsif ply == 1
-	puts "Please choose from : " + col_arr.to_s
+	puts "Please choose from: " + col_arr.to_s
 	answer = guess_tgt
+	ai_guess = []
+	i = 1
+	until i == 8
+		if i == 1 
+			ag = [col_arr[0].to_s,col_arr[0].to_s,col_arr[0].to_s,col_arr[0].to_s]
+		end
+		puts "Computer guessed: " + ag.to_s
+		fb1 = return_feedback(answer, ag)
+		puts "Feedback Number " + i.to_s + ": " + fb1.to_s
+		if fb1.include? "correct" or fb1.include? "present"
+			ai_guess.push [col_arr[1]]
+		end
+
+
+
+	i += 1
+	end
+
+
+
 else
 	puts "learn to play"
 end
