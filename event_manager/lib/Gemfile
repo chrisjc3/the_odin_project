@@ -1,3 +1,0 @@
-source 'https://github.com/'
-gem 'csv'
-gem 'sunlight-congress'
