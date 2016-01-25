@@ -1,11 +1,9 @@
-
-
-
 #all case insensitive
 #drawing not required by assignment
 # turns = 6 
 
-
+#no error handling, so easy to mess up your turns/short the game
+	#^wasn't requested by assignment
 
 #generate random word from /words.txt between 5 and 12 characters in length
 require 'csv'
@@ -40,7 +38,7 @@ def player_char_guess
 	begin 
 		puts "Guess a character:"
 		char = gets.chomp
-		if char.length > 1 
+		if char.length > 1 and char != "save" and char != "load"
 			puts "Learn to play!"
 			char = nil
 			redo
@@ -76,9 +74,18 @@ def check_char_guess(answer, guess)
 	return $feedback
 end
 
-#once game made implement save/load states
-	
-
+def ismenucommand(player_input)
+	if player_input == "save"
+		$menuc = "save"
+		return true
+	elsif player_input == "load"
+		$menuc = "load"
+		return true
+	elsif player_input == "end"
+		$menuc = "end"
+		return true
+	end
+end
 
 #########################GAME START##########################################
 
@@ -89,21 +96,41 @@ turn = 1
 turn_max = 6
 $feedback = blank_feedback($tgt_word)
 
-puts "ANSWER: " + $tgt_word.join.to_s
-
 until turn > turn_max
+#puts "ANSWER: " + $tgt_word.join.to_s
 puts "Turn Number: " + turn.to_s
 	gtype = nil
 	unless gtype.nil? == false
-		puts "What would you like to guess?"
-		puts "(0 = Character, 1 = Word)"
+		puts "FEEDBACK: " + $feedback.join.to_s
+		puts "Select action:"
+		puts "(0 = Char Guess, 1 = Word Guess, save, load, end)"
 		gtype = gets.chomp
-		gtype = gtype.to_i
+		if ismenucommand(gtype) == true
+			if $menuc == "save"
+				save_state = [$tgt_word.join.to_s, $feedback.join.to_s, turn].to_a
+				CSV.open("save.csv", "wb") do |csv|
+					csv << save_state
+				end
+				puts "game saved"
+				break
+			elsif $menuc == "load"
+				contents = CSV.read("save.csv")
+				$tgt_word = contents[0][0].chars.to_a
+				$feedback = contents[0][1].chars.to_a
+				$feedback = $feedback.keep_if {|c| c != " "}
+				$feedback = $feedback.collect {|c| " " + c + " "}
+				turn = contents[0][2].to_i
+				puts "loaded"
+				redo
+			elsif $menuc == "end"
+				break
+			end
+		else 		
+			gtype = gtype.to_i
+		end
 		if gtype == 0 
 			curr_guess = player_char_guess
 			$feedback = check_char_guess($tgt_word, curr_guess)
-			#display letters in answer and underscore where not yet guessed
-			puts "FEEDBACK: " + $feedback.join.to_s
 		elsif gtype == 1
 			curr_guess = player_word_guess
 			if $tgt_word == curr_guess.chars.to_a
@@ -118,6 +145,8 @@ puts "Turn Number: " + turn.to_s
 	end
 	turn += 1
 end
+
+
 
 
 #########################GAME END############################################
